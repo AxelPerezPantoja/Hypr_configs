@@ -1,0 +1,8 @@
+#!/bin/bash
+LEVEL=$(cat /sys/class/leds/dell::kbd_backlight/brightness)
+case $LEVEL in
+    0) echo "⬛" ;;
+    1) echo "🔅" ;;
+    2) echo "🔆" ;;
+    *) echo "💡" ;;
+esac

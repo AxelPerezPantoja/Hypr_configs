@@ -1,0 +1,44 @@
+#!/bin/bash
+
+case "$1" in
+    list)
+        n=${2:-10}
+        TMPFILE=$(mktemp)
+        
+        {
+            echo "╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗"
+            echo "║                                    SNAPSHOTS DE BTRFS (últimos $n)                                                                   ║"
+            echo "╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝"
+            echo ""
+            sudo snapper -c root list | tail -n $((n + 1)) | head -n $n
+            echo ""
+            echo "══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
+            echo ""
+            echo "Para restaurar un snapshot: sudo snapper -c root rollback <número>"
+            echo "Para más detalles: sudo snapper -c root info <número>"
+            echo "Para crear un snapshot: snap \"descripción\""
+        } > "$TMPFILE"
+        
+        micro "$TMPFILE"
+        rm "$TMPFILE"
+        ;;
+    
+    edit)
+        if [ -z "$2" ] || [ -z "$3" ]; then
+            echo "❌ Uso: snap edit <número> \"nueva descripción\""
+            exit 1
+        fi
+        sudo snapper -c root modify -d "$3" "$2"
+        echo "✅ Descripción del snapshot #$2 actualizada"
+        ;;
+    
+    "")
+        echo "❌ Uso: snap \"descripción\"  |  snap list [N]  |  snap edit <#> \"desc\""
+        exit 1
+        ;;
+    
+    *)
+        sudo snapper -c root create --description "$*"
+        echo "✅ Snapshot creado: \"$*\""
+        ;;
+esac

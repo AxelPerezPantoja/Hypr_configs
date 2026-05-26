@@ -1,0 +1,19 @@
+#!/bin/bash
+# El nombre correcto de tu teclado principal
+KEYBOARD="at-translated-set-2-keyboard"
+
+# Cambiar al siguiente layout (alterna entre us y es)
+hyprctl switchxkblayout "$KEYBOARD" next
+
+# Esperar un momento para que el cambio se aplique
+sleep 0.1
+
+# Obtener el layout actual
+CURRENT=$(hyprctl devices -j | grep -A10 "$KEYBOARD" | grep "active_keymap" | head -1 | cut -d'"' -f4)
+
+# Mostrar el icono correspondiente
+if [[ "$CURRENT" == *"Spanish"* ]] || [[ "$CURRENT" == *"es"* ]]; then
+    echo "🇪🇸 ES"
+else
+    echo "🇺🇸 US"
+fi

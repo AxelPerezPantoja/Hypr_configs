@@ -1,0 +1,4 @@
+#!/bin/bash
+CPU=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}' | cut -d'%' -f1)
+RAM=$(free -h | awk '/^Mem:/ {print $3}' | sed 's/Gi//g')
+echo "$CPU $RAM"

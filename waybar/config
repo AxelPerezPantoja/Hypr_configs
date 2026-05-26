@@ -1,0 +1,97 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "spacing": 4,
+    "modules-left": [ "custom/brightness","custom/kbd-backlight","hyprland/workspaces"],
+    "modules-center": ["hyprland/window"],
+"modules-right": ["cpu", "memory", "pulseaudio", "bluetooth", "network", "battery", "clock", "hyprland/language"],
+
+    "hyprland/workspaces": {
+            "format": "{icon}",
+            "format-icons": {
+                "1": "一", "2": "二", "3": "三", "4": "四",
+                "5": "五", "6": "六", "7": "七", "8": "八",
+                "9": "九", "10": "十"
+            },
+            "on-scroll-up": "hyprctl dispatch workspace e+1",
+            "on-scroll-down": "hyprctl dispatch workspace e-1"
+        },
+    
+        "hyprland/window": {
+            "format": "{}",
+            "rewrite": {
+                ".*(firefox).*": "🌍 Firefox",
+                ".*(kitty).*": "🐱 Kitty",
+                ".*(thunar).*": "📁 Thunar"
+            }
+        },
+    
+        "cpu": {
+            "format": " {usage}%",
+            "interval": 2
+        },
+    
+        "memory": {
+            "format": " {percentage}%"
+        },
+    
+        "custom/brightness": {
+            "format": " {}%",
+            "exec": "brightnessctl get | awk '{printf \"%d\", $1 * 100 / 96000}'",
+            "interval": 2,
+            "on-scroll-up": "brightnessctl set +5%",
+            "on-scroll-down": "brightnessctl set 5%-"
+        },
+    
+        "custom/kbd-backlight": {
+            "format": " {}",
+           "exec": "brightnessctl --device='dell::kbd_backlight' get | awk '{printf \"%d/2\", $1}'",
+           "interval": 1,
+           "on-click": "brightnessctl --device='dell::kbd_backlight' set +1",
+           "on-scroll-up": "brightnessctl --device='dell::kbd_backlight' set +1",
+           "on-scroll-down": "brightnessctl --device='dell::kbd_backlight' set 1-"
+		},
+    
+        "pulseaudio": {
+            "format": "{icon} {volume}%",
+            "format-muted": "婢 Muted",
+            "format-icons": ["", "", ""],
+            "on-click": "pavucontrol"
+        },
+    
+        "bluetooth": {
+            "format": "{icon}",
+            "format-disabled": "",
+            "format-icons": [""],
+            "on-click": "blueman-manager"
+        },
+    
+        "network": {
+            "format-wifi": " {essid}",
+            "format-ethernet": " Ethernet",
+            "format-disconnected": "睊 Disconnected",
+            "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+            "on-click": "alacritty -e nmtui"
+        },
+    
+        "battery": {
+            "format": "{icon} {capacity}%",
+            "format-icons": ["", "", "", "", ""],
+            "format-charging": " {capacity}%",
+            "interval": 30
+        },
+    
+        "clock": {
+            "format": " {:%I:%M %p}",
+            "format-alt": " {:%A %d de %B de %Y, %I:%M %p}",
+            "on-click": "gnome-calendar"
+        },
+    
+        "hyprland/language": {
+            "format": "{}",
+            "format-en": "🇺🇸 US",
+            "format-es": "🇪🇸 ES",
+            "on-click": "~/.local/bin/toggle-lang"
+        }
+}

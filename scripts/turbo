@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Ruta del archivo del kernel para el Turbo Boost
+TURBO_PATH="/sys/devices/system/cpu/intel_pstate/no_turbo"
+
+# Leer el estado actual (0 = Activado, 1 = Desactivado)
+CURRENT_STATE=$(cat $TURBO_PATH)
+
+if [ "$CURRENT_STATE" -eq 0 ]; then
+    STATE_NAME="ACTIVADO"
+    NEW_STATE=1
+    ACTION="desactivar"
+else
+    STATE_NAME="DESACTIVADO"
+    NEW_STATE=0
+    ACTION="activar"
+fi
+
+echo "-----------------------------------"
+echo "Estado actual del Turbo Boost: $STATE_NAME"
+echo "¿Deseas $ACTION el Turbo Boost? (s/n)"
+read -r CONFIRM
+
+if [[ "$CONFIRM" =~ ^[sS]$ ]]; then
+    echo "$NEW_STATE" | sudo tee $TURBO_PATH > /dev/null
+    echo "¡Turbo Boost configurado correctamente!"
+else
+    echo "Operación cancelada."
+fi
+echo "-----------------------------------"

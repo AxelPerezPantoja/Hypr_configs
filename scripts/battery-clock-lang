@@ -1,0 +1,7 @@
+#!/bin/bash
+BAT=$(cat /sys/class/power_supply/BAT0/capacity 2>/dev/null || echo "N/A")
+CHARGING=$(cat /sys/class/power_supply/BAT0/status 2>/dev/null)
+[ "$CHARGING" = "Charging" ] && BAT_ICON="⚡" || BAT_ICON="🔋"
+TIME=$(date "+%I:%M %p")
+LANG=$(hyprctl devices -j | grep -A5 "keyboard" | grep "active_keymap" | head -1 | cut -d'"' -f4 | cut -c1-2)
+echo "$BAT_ICON $BAT%  🕒 $TIME  🌐 $LANG"

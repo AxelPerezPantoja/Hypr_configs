@@ -1,0 +1,32 @@
+#!/bin/bash
+DEVICE="/sys/class/leds/dell::kbd_backlight"
+
+if [ ! -f "$DEVICE/brightness" ]; then
+    echo "❌ No se encontró dispositivo"
+    exit 1
+fi
+
+MAX=$(cat "$DEVICE/max_brightness")
+CURRENT=$(cat "$DEVICE/brightness")
+
+case "$1" in
+    up)
+        NEW=$((CURRENT + 1))
+        [ $NEW -gt $MAX ] && NEW=$MAX
+        echo $NEW | sudo tee "$DEVICE/brightness" > /dev/null
+        ;;
+    down)
+        NEW=$((CURRENT - 1))
+        [ $NEW -lt 0 ] && NEW=0
+        echo $NEW | sudo tee "$DEVICE/brightness" > /dev/null
+        ;;
+    cycle)
+        NEW=$((CURRENT + 1))
+        [ $NEW -gt $MAX ] && NEW=0
+        echo $NEW | sudo tee "$DEVICE/brightness" > /dev/null
+        ;;
+    *)
+        echo "Uso: kbd-backlight {up|down|cycle}"
+        exit 1
+        ;;
+esac

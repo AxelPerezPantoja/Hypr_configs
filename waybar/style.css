@@ -1,0 +1,193 @@
+* {
+    font-family: "MesloLGS Nerd Font", "Font Awesome 6 Free", monospace;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: transparent;
+    border-radius: 0px;
+    border: none;
+}
+
+/* ============================================================================
+   MODULOS LEFT, CENTER, RIGHT (con espacio entre ellos)
+   ============================================================================ */
+.modules-left {
+    background-color: transparent;
+    margin: 0 0 0 8px;
+}
+
+.modules-center {
+    background-color: transparent;
+}
+
+.modules-right {
+    background-color: transparent;
+    margin: 0 8px 0 0;
+}
+
+/* ============================================================================
+   WORKSPACES (grupo)
+   ============================================================================ */
+#workspaces {
+    background-color: #1e2a3a;
+    border-radius: 14px;
+    padding: 0 8px;
+    margin: 4px 0;
+    border: 1px solid #2a3a4a;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    color: #cdd6f4;
+    border-radius: 10px;
+    margin: 2px 0;
+}
+
+#workspaces button:hover {
+    background-color: #313244;
+}
+
+#workspaces button.active {
+    background-color: #89b4fa;
+    color: #1e1e2e;
+}
+
+#workspaces button.urgent {
+    background-color: #f38ba8;
+}
+
+/* ============================================================================
+   GRUPO DE CPU + MEMORIA
+   ============================================================================ */
+#cpu, #memory {
+    background-color: #1e2a3a;
+    border-radius: 12px;
+    padding: 0 12px;
+    margin: 4px 1px;
+    border: 1px solid #2a3a4a;
+}
+
+#cpu {
+    color: #a6e3a1;
+    margin-right: 2px;
+}
+
+#memory {
+    color: #89b4fa;
+    margin-left: 2px;
+}
+
+/* ============================================================================
+   GRUPO DE BRILLOS (pantalla + teclado)
+   ============================================================================ */
+#custom-brightness, #custom-kbd-backlight {
+    background-color: #1e2a3a;
+    border-radius: 12px;
+    padding: 0 12px;
+    margin: 4px 1px;
+    border: 1px solid #2a3a4a;
+}
+
+#custom-brightness {
+    color: #f9e2af;
+    margin-right: 2px;
+}
+
+#custom-kbd-backlight {
+    color: #f9e2af;
+    margin-left: 2px;
+}
+
+/* ============================================================================
+   GRUPO DE AUDIO + BLUETOOTH + RED
+   ============================================================================ */
+#pulseaudio, #bluetooth, #network {
+    background-color: #1e2a3a;
+    border-radius: 12px;
+    padding: 0 12px;
+    margin: 4px 1px;
+    border: 1px solid #2a3a4a;
+}
+
+#pulseaudio {
+    color: #94e2d5;
+    margin-right: 2px;
+}
+
+#bluetooth {
+    color: #89b4fa;
+}
+
+#network {
+    color: #f9e2af;
+    margin-left: 2px;
+}
+
+/* ============================================================================
+   GRUPO DE BATERÍA + RELOJ + IDIOMA
+   ============================================================================ */
+#battery, #clock, #language {
+    background-color: #1e2a3a;
+    border-radius: 12px;
+    padding: 0 12px;
+    margin: 4px 1px;
+    border: 1px solid #2a3a4a;
+}
+
+#battery {
+    color: #cba6f7;
+    margin-right: 2px;
+}
+
+#clock {
+    color: #89dceb;
+}
+
+#language {
+    color: #a6e3a1;
+    margin-left: 2px;
+}
+
+/* ============================================================================
+   VENTANA CENTRAL
+   ============================================================================ */
+#window {
+    background-color: #1e2a3a;
+    border-radius: 14px;
+    padding: 0 20px;
+    margin: 4px 0;
+    color: #cdd6f4;
+    border: 1px solid #2a3a4a;
+}
+
+/* ============================================================================
+   HIGHLIGHTS (efectos al pasar el ratón)
+   ============================================================================ */
+#workspaces button:hover,
+#cpu:hover,
+#memory:hover,
+#custom-brightness:hover,
+#custom-kbd-backlight:hover,
+#pulseaudio:hover,
+#bluetooth:hover,
+#network:hover,
+#battery:hover,
+#clock:hover,
+#language:hover,
+#window:hover {
+    background-color: #2a3a4a;
+    transition: all 0.2s ease;
+}
+
+/* ============================================================================
+   ESPACIADORES ENTRE GRUPOS
+   ============================================================================ */
+.modules-left > widget:not(:first-child) {
+    margin-left: 6px;
+}
+
+.modules-right > widget:not(:first-child) {
+    margin-left: 6px;
+}

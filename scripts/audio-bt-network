@@ -1,0 +1,7 @@
+#!/bin/bash
+VOL=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+%' | head -1)
+BT=$(bluetoothctl show | grep "Powered" | awk '{print $2}')
+if [ "$BT" = "yes" ]; then BT_ICON="🔵"; else BT_ICON="⚫"; fi
+WIFI=$(nmcli -t -f active,ssid dev wifi | grep "^yes" | cut -d: -f2)
+[ -z "$WIFI" ] && WIFI="❌"
+echo "🔊 $VOL  $BT_ICON  🌐 $WIFI"

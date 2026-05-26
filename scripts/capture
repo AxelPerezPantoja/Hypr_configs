@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# Carpeta de capturas
+CAPTURE_DIR="$HOME/Imágenes/Capturas"
+mkdir -p "$CAPTURE_DIR"
+
+case "$1" in
+    area)
+        FILE="$CAPTURE_DIR/captura-$(date +%Y%m%d_%H%M%S).png"
+        grim -g "$(slurp)" "$FILE"
+        notify-send "Captura" "Área guardada en $FILE"
+        ;;
+    area-copy)
+        grim -g "$(slurp)" - | wl-copy --type image/png
+        notify-send "Captura" "Área copiada al portapapeles"
+        ;;
+    full)
+        FILE="$CAPTURE_DIR/pantalla-$(date +%Y%m%d_%H%M%S).png"
+        grim "$FILE"
+        notify-send "Captura" "Pantalla completa guardada en $FILE"
+        ;;
+    full-copy)
+        grim - | wl-copy --type image/png
+        notify-send "Captura" "Pantalla completa copiada al portapapeles"
+        ;;
+    *)
+        echo "Uso: capture {area|area-copy|full|full-copy}"
+        exit 1
+        ;;
+esac
